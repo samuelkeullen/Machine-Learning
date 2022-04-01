@@ -32,7 +32,7 @@ def main():
 
     if choice == 1:
         print("Linear Regression with one variable selected.")
-        print("Please submit the required inputs above.")
+        print("Please submit the required inputs below.")
         
         b0 = int(input("The b0: "))
         b1 = int(input("The b1: "))
@@ -44,7 +44,7 @@ def main():
 
     if choice == 2:
         print("Linear Regression with multiple variables selected.")
-        print("Please submit the required inputs above.")
+        print("Please submit the required inputs below.")
         
         b0 = int(input("The b0: "))
         b1 = int(input("The b1: "))
