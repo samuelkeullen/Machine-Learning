@@ -65,7 +65,7 @@ for ids in ids_dataset.take(10):
 
 print("\n")
 
-seq_length = 100
+seq_length = 500
 examples_per_epoch = len(text)//(seq_length+1)
 
 sequences = ids_dataset.batch(seq_length+1, drop_remainder=True)
@@ -200,7 +200,8 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
 
 print("Let's start the training\n")
 
-EPOCHS = 20
+#EPOCHS = 20
+EPOCHS = 5
 
 history = model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
 
@@ -248,10 +249,11 @@ class OneStep(tf.keras.Model):
     # Return the characters and model state.
     return predicted_chars, states
 
+#train
 one_step_model = OneStep(model, chars_from_ids, ids_from_chars)
 start = time.time()
 states = None
-next_char = tf.constant(['ROMEO:'])
+next_char = tf.constant(['PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:'])
 result = [next_char]
 
 for n in range(1000):
@@ -266,8 +268,11 @@ print('\nRun time:', end - start)
 tf.saved_model.save(one_step_model, 'one_step')
 one_step_reloaded = tf.saved_model.load('one_step')
 
+#EXPORT TO GENERATOR
 states = None
-next_char = tf.constant(['ROMEO:'])
+
+next_char = tf.constant(['PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:'])
+
 result = [next_char]
 
 for n in range(100):
