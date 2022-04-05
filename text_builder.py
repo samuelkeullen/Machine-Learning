@@ -4,7 +4,8 @@ import numpy as np
 import os
 import time
 
-path_to_file = tf.keras.utils.get_file('shakespeare.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
+#path_to_file = tf.keras.utils.get_file('shakespeare.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
+path_to_file = "./data/wonderland.txt"
 
 # Read, then decode for py2 compat.
 text = open(path_to_file, 'rb').read().decode(encoding='utf-8')
@@ -65,7 +66,7 @@ for ids in ids_dataset.take(10):
 
 print("\n")
 
-seq_length = 500
+seq_length = 100
 examples_per_epoch = len(text)//(seq_length+1)
 
 sequences = ids_dataset.batch(seq_length+1, drop_remainder=True)
@@ -201,7 +202,7 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
 print("Let's start the training\n")
 
 #EPOCHS = 20
-EPOCHS = 5
+EPOCHS = 60
 
 history = model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
 
@@ -253,7 +254,7 @@ class OneStep(tf.keras.Model):
 one_step_model = OneStep(model, chars_from_ids, ids_from_chars)
 start = time.time()
 states = None
-next_char = tf.constant(['PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:'])
+next_char = tf.constant(['PARAGRAPH:'])
 result = [next_char]
 
 for n in range(1000):
@@ -271,7 +272,7 @@ one_step_reloaded = tf.saved_model.load('one_step')
 #EXPORT TO GENERATOR
 states = None
 
-next_char = tf.constant(['PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:', 'PARAGRAPH:'])
+next_char = tf.constant(['PARAGRAPH:'])
 
 result = [next_char]
 
