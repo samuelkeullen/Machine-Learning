@@ -2,7 +2,8 @@ import cv2
 import sys
 
 # Get user supplied values
-imagePath = "abba.png"
+#imagePath = "abba.png"
+imagePath = "Arthur-Samuel.webp"
 cascPath = "haarcascade_frontalface_default.xml"
 
 
